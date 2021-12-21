@@ -1,0 +1,24 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+<h1>{{ product.display_name }}</h1>
+
+<div>
+    {{ product.price }}
+</div>
+
+<h5>{{ product.question_set.count }}개의 질문이 있습니다.</h5>
+<div>
+    <ul>
+    {% for question in product.question_set.all %}
+
+        <li>{{ question.body }}</li>
+
+    {% endfor %}
+    </ul>
+</div>
+
+<form action="{% url 'products:question_create' product.id %}" method="post">
+{% csrf_token %}
+<textarea name="body" id="body" rows="15"></textarea>
+<input height = "100px" type="submit" value="질문등록">
+</form>
