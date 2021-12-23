@@ -10,11 +10,10 @@
             <img src="http://bnx.oa.gg/img/logo.gif" alt="">
         </p>
 
-    </a>
         </div>
         <div class="top-bn-box con">
-    <div class="img-box">
-        <img src="https://blog.rocketpunch.com/wp-content/uploads/2019/06/01-4.jpg" alt="">
+    <div class="img-box" >
+        <img style = "width:1110px" src="https://blog.rocketpunch.com/wp-content/uploads/2019/06/01-4.jpg" alt="">
     </div>
     </div>
         <thead>
@@ -34,7 +33,7 @@
                 <a href="{% url 'products:detail' product.id %}">{{ product.display_name}}</a>
             </td>
             <td>
-                {{ product.price}}
+                <b style="color:red">{{ product.price}}원</b>
             </td>
             <td>
                  {{ product.reg_date }}

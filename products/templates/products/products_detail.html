@@ -1,24 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+<br>
 
+
+</br>
+<center>
 <h1>{{ product.display_name }}</h1>
 <div>
-    {{ product.price }}
+    <br>
+    <b style="color:red">{{ product.price }}원</b>
+    <br>
+    <br>
 </div>
-<h5>{{ questions.count }}개의 질문이 있습니다.</h5>
+<h5 style="color:blue">{{ questions.count }}개의 질문이 있습니다.</h5>
+    <br>
 <div>
+    <div style="display:inline-block">
     <ul>
     {% for question in questions %}
-        <li>{{forloop.counter}}. {{ question.body }}</li>
-        <a href="{% url 'products:question_modify' product.id question.id  %}" class="small">수정</a>
-        <a href="{% url 'products:question_delete' product.id question.id  %}" class="small">삭제</a>
+        <li style="text-align:left">{{ forloop.counter}}. {{ question.body }}</li>
+        <div>
+            <a href="{% url 'products:question_modify' product.id question.id  %}" class="small">수정</a>
+            <br>
+            <a href="{% url 'products:question_delete' product.id question.id  %}" class="small">삭제</a>
+        </div>
     {% endfor %}
     </ul>
+    </div>
 </div>
+</center>
 
 <form action="{% url 'products:question_create' product.id %}" method="post">
 {% csrf_token %}
 <textarea name="body" id="body" rows="15"></textarea>
 <input height = "100px" type="submit" value="질문등록">
 </form>
+{% endblock %}
 
