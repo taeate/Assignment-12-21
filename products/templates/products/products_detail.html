@@ -1,18 +1,17 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-<h1>{{ product.display_name }}</h1>
 
+<h1>{{ product.display_name }}</h1>
 <div>
     {{ product.price }}
 </div>
-
-<h5>{{ product.question_set.count }}개의 질문이 있습니다.</h5>
+<h5>{{ questions.count }}개의 질문이 있습니다.</h5>
 <div>
     <ul>
-    {% for question in product.question_set.all %}
-
-        <li>{{ question.body }}</li>
-
+    {% for question in questions %}
+        <li>{{forloop.counter}}. {{ question.body }}</li>
+        <a href="{% url 'products:question_modify' product.id question.id  %}" class="small">수정</a>
+        <a href="{% url 'products:question_delete' product.id question.id  %}" class="small">삭제</a>
     {% endfor %}
     </ul>
 </div>
@@ -22,3 +21,4 @@
 <textarea name="body" id="body" rows="15"></textarea>
 <input height = "100px" type="submit" value="질문등록">
 </form>
+
