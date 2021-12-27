@@ -1,41 +1,81 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
 <br>
 
-
-</br>
 <center>
-<h1>{{ product.display_name }}</h1>
-<div>
-    <br>
-    <b style="color:red">{{ product.price }}원</b>
-    <br>
-    <br>
-</div>
-<h5 style="color:blue">{{ questions.count }}개의 질문이 있습니다.</h5>
-    <br>
-<div>
-    <div style="display:inline-block">
-    <ul>
-    {% for question in questions %}
-        <li style="text-align:left">{{ forloop.counter}}. {{ question.body }}</li>
-        <div>
-            <a href="{% url 'products:question_modify' product.id question.id  %}" class="small">수정</a>
-            <br>
-            <a href="{% url 'products:question_delete' product.id question.id  %}" class="small">삭제</a>
-        </div>
-    {% endfor %}
-    </ul>
+    <h1>{{ product.display_name }}<br>
+        <div class="t-text-red">저는원피스에요</div>
+    </h1>
+    <div>
+        <br>
     </div>
-</div>
-</center>
+    <h1></h1>
+    {% if product.image %}
+    <img class="t-h-[155px] t-w-[155px] " src="{{ product.image.url }}">
+    {% else %}
+    <div class="t-h-[155px] t-w-[155px]">이미지 준비중이에요</div>
+    {% endif %}
+    <div>
+        <b style="color:red">{{ product.price }}원</b>
+    </div>
+    <div>
+        번호 : {{product.id}}
+    </div>
+    <div>
+        등록 : {{product.reg_date}}
+    </div>
+    <div>
+        수정 : {{product.update_date}}
+    </div>
+    <div>
+        이름 : {{product.display_name}}
+    </div>
+    <div>
+        가격 : {{product.sale_price}}원
+    </div>
+    <div>
+        마켓 : {{product.market.name}}
+    </div>
 
+    <h1 class="mt-3">옵션</h1>
+    <ul>
+        {% for product_real in product_reals %}
+        <li>
+            {{product_real.option_1_type}} : {{product_real.option_1_display_name}}
+            /
+            {{product_real.option_2_type}} : {{product_real.option_2_display_name}}
+        </li>
+        {% endfor %}
+    </ul>
+    <h5 style="color:blue">{{ questions.count }}개의 질문이 있습니다.</h5>
+    <br>
+    <div>
+        <div style="display:inline-block">
+            <ul>
+                {% for question in questions %}
+                <li style="text-align:left">{{ forloop.counter}}. {{ question.body }}</li>
+                <div>
+                    <a href="{% url 'products:question_modify' product.id question.id  %}"
+                       class="btn btn-sm btn-secondary">수정</a>
+                    <br>
+                    <a href="{% url 'products:question_delete' product.id question.id  %}"
+                       class="btn btn-sm btn-warning"
+                       onclick="if ( confirm('정말 삭제하시겠습니까?') == false ) return false;">삭제</a>
+                </div>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</center>
+{% if user.is_authenticated %}
 <form action="{% url 'products:question_create' product.id %}" method="post">
-{% csrf_token %}
-<textarea name="body" id="body" rows="15"></textarea>
-<input height = "100px" type="submit" value="질문등록">
+    {% csrf_token %}
+    <textarea name="body" id="body" rows="15"></textarea>
+    <input height="100px" type="submit" value="질문등록">
 </form>
+{% else %}
+<a href="{% url 'accounts:signup' %}">로그인</a> 후 이용해주세요.
+{% endif %}
 {% endblock %}
 

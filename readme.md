@@ -1,2 +1,1 @@
-# 프로젝트 개요
-- 그냥..
+npx tailwindcss -i ./base/static/common.base.css -o ./base/static/common.css --watch

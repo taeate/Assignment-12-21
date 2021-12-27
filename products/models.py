@@ -11,6 +11,7 @@ class Product(models.Model):
     is_deleted = models.BooleanField('삭제여부', default=False)
     delete_date = models.DateTimeField('삭제날짜', null=True, blank=True)
     market = models.ForeignKey(Market, on_delete=models.DO_NOTHING)
+    image = models.ImageField(upload_to='products/images/', null=True)
     name = models.CharField('상품명(내부용)', max_length=100)
     display_name = models.CharField('상품명(고객용)', max_length=100)
     price = models.PositiveIntegerField('권장판매가')
@@ -22,11 +23,17 @@ class Product(models.Model):
     review_count = models.PositiveIntegerField('리뷰수', default=0)
     review_point = models.PositiveIntegerField('리뷰평점', default=0)
 
+    def __str__(self):
+        return self.display_name
+
+    def thumb_img_url(self):
+        return f"https://picsum.photos/id/{self.id}/300/300"
+
 
 class ProductReal(models.Model):
     reg_date = models.DateTimeField('등록날짜', auto_now_add=True)
     update_date = models.DateTimeField('갱신날짜', auto_now=True)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="product_reals")
     option_1_type = models.CharField('옵션1 타입', max_length=10, default='SIZE')
     option_1_name = models.CharField('옵션1 이름(내부용)', max_length=50)
     option_1_display_name = models.CharField('옵션1 이름(고객용)', max_length=50)

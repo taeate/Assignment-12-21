@@ -1,0 +1,39 @@
+.t-flex {
+  display: flex
+}
+
+.t-grid {
+  display: grid
+}
+
+.t-h-\[155px\] {
+  height: 155px
+}
+
+.t-h-\[380x\] {
+  height: 380x
+}
+
+.t-w-\[155px\] {
+  width: 155px
+}
+
+.t-w-\[380x\] {
+  width: 380x
+}
+
+.t-grid-cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr))
+}
+
+.t-flex-col {
+  flex-direction: column
+}
+
+.t-gap-\[5px\] {
+  gap: 5px
+}
+
+.t-align-middle {
+  vertical-align: middle
+}

@@ -6,6 +6,9 @@ from .models import Product
 from .forms import QuestionForm
 from questions.models import Question
 from django.contrib import messages
+from django.core import exceptions
+from django.contrib.auth.decorators import login_required
+
 
 def index(request):
     """
@@ -41,6 +44,7 @@ def question_create(request, product_id):
         form = QuestionForm()
     return redirect('products:detail', product_id=product_id)
 
+
 @login_required(login_url='accounts:login')
 def question_modify(request, product_id, question_id):
     """
@@ -66,6 +70,7 @@ def question_modify(request, product_id, question_id):
     context = {'form': form, 'question': question, 'product': product}
     return render(request, 'products/question_form.html', context)
 
+
 @login_required(login_url='accounts:login')
 def question_delete(request, product_id, question_id):
     """
@@ -73,14 +78,7 @@ def question_delete(request, product_id, question_id):
     """
     question = get_object_or_404(Question, pk=question_id)
     if request.user != question.user:
-        messages.error(request, '댓글 삭제권한이 없습니다')
-        return redirect('products:detail', product_id=product_id)
+        raise exceptions.PermissionDenied()
     question.delete()
+    messages.success(request, "질문이 삭제되었습니다.")
     return redirect('products:detail', product_id=product_id)
-
-
-
-
-
-
-

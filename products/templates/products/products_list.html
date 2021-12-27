@@ -1,51 +1,40 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-<div class="container my-5">
-    <table class="table my-5">
-         <div class="logo-bar">
-    <a href="#" class="logo">
-        <p style="text-align: center">
-            <img src="http://bnx.oa.gg/img/logo.gif" alt="">
-        </p>
-
-        </div>
-        <div class="top-bn-box con">
-    <div class="img-box" >
-        <img style = "width:1110px" src="https://blog.rocketpunch.com/wp-content/uploads/2019/06/01-4.jpg" alt="">
-    </div>
-    </div>
-        <thead>
-        <tr class="thead-dark">
-            <th>상품번호</th>
-            <th>상품이름</th>
-            <th>상품가격</th>
-            <th>작성일시</th>
-        </tr>
-        </thead>
-        <tbody>
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+<div>
+    <img src="https://marymond.kr/data/uploads/custom_view/main_pc_0827_6.jpg" width="100%" , height="">
+</div>
+<br>
+<br>
+<tbody>
+<div>
+    <ul class="t-grid t-grid-cols-4 t-gap-[5px]">
         {% if product_list %}
         {% for product in product_list %}
-        <tr>
-            <td>{{ forloop.counter }}</td>
-            <td>
-                <a href="{% url 'products:detail' product.id %}">{{ product.display_name}}</a>
-            </td>
-            <td>
-                <b style="color:red">{{ product.price}}원</b>
-            </td>
-            <td>
-                 {{ product.reg_date }}
-            </td>
-        </tr>
+        <li class="t-flex t-flex-col">
+            {% if product.image %}
+            <img class="t-h-[380x] t-w-[380x] " src="{{ product.image.url }}">
+            {% else %}
+            <div class="t-h-[155px] t-w-[155px] t-align-middle"></div>
+            {% endif %}
+            <a href="{% url 'products:detail' product.id %}" style="text-align:center">
+                {{ product.display_name}}</a>
+
+            <a href="{% url 'products:detail' product.id %}" style="text-align:center">
+                {{ product.price}}원</a>
+
+        </li>
         {% endfor %}
         {% else %}
         <tr>
             <td colspan="3">질문이 없습니다.</td>
         </tr>
         {% endif %}
-        </tbody>
-    </table>
+    </ul>
+</div>
+</tbody>
+</ul>
+</ul>
 </div>
 {% endblock %}
