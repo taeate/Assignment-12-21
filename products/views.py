@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
+from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from .models import Product
@@ -14,9 +15,17 @@ def index(request):
     """
     목록 출력
     """
-    product_list = Product.objects.order_by()
-    context = {'product_list': product_list}
-    return render(request, 'products/products_list.html', context)
+    search_keyword = request.GET.get('search_keyword', '')
+    page = request.GET.get('page', '1')
+
+    if not search_keyword:
+        product_list = Product.objects.order_by('-id')
+    else:
+        product_list = Product.objects.filter(display_name__icontains=search_keyword).order_by('-id')
+
+    paginator = Paginator(product_list, 4)
+    page_obj = paginator.get_page(page)
+    return render(request, 'products/products_list.html', {'product_list': page_obj})
 
 
 def detail(request, product_id):

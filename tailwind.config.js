@@ -1,9 +1,7 @@
 module.exports = {
-  module: "jit",
+  mode: "jit",
   prefix: 't-',
-  content: ["./base/templates/*.{html,js}",
-            "./accounts/templates/*.{html,js}",
-            "./products/templates/**/*.{html,js}"],
+  content: [".//templates//*.{html, js}"],
   theme: {
     extend: {},
   },
