@@ -1,9 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
-from .models import Product
+from .models import Product, ProductReal
 from .forms import QuestionForm
 from questions.models import Question
 from django.contrib import messages
@@ -27,12 +28,18 @@ def index(request):
     page_obj = paginator.get_page(page)
     return render(request, 'products/products_list.html', {'product_list': page_obj})
 
+def main(request):
+    return render(request, 'products/main.html')
+
 
 def detail(request, product_id):
     product = Product.objects.get(id=product_id)
     questions = Question.objects.filter(
         object_id=product_id).filter(content_type=ContentType.objects.get(app_label='products', model='product'))
-    context = {'product': product, 'questions': questions}
+
+    product_reals = product.product_reals.order_by('option_1_display_name')
+    context = {'product': product, 'questions': questions, 'product_reals': product_reals}
+
     return render(request, 'products/products_detail.html', context)
 
 

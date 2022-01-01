@@ -1,39 +1,48 @@
-{% extends 'base.html' %}
+{% extends 'layout.html' %}
 {% block content %}
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+{% load humanize %}
 <div>
-    <img class="t-w-screen" src="https://marymond.kr/data/uploads/custom_view/main_pc_0827_6.jpg" >
+    <img class="t-w-screen" src="https://marymond.kr/data/uploads/custom_view/main_pc_0827_6.jpg">
 </div>
 <br>
 <br>
 <tbody>
 <div>
-<div class="t-bg-red-500">asdaadasdasdasw232s</div>
-    <ul class="t-grid t-grid-cols-4 t-gap-[20px]">
+    <p class="t-text-center" style="font-size: 25px">- TODAY BEST -</p>
+    <p class="t-text-center" style="color: #999;">오늘 가장 많이 팔린 아이템들을 만나보세요.</p>
+    <ul class="t-grid t-grid-cols-4 t-gap-[3px]">
         {% if product_list %}
         {% for product in product_list %}
-        <li class="t-flex t-flex-col">
+        <li class="t-flex t-flex-col t-group">
             {% if product.image %}
-            <img data before="상품보기" class="t-h-[150px] t-w-[150px] " src="{{ product.image.url }}">
+            <div class="t-w-full">
+            <img data before="상품보기"
+                 class="t-block t-m-auto t-w-[90%] t-transition-all group-hover:t-scale-110 t-relative t--z-50 t-object-cover"
+                 src="{{ product.image.url }}" alt="" style="aspect-ratio: 1 / 1;">
+            </div>
             {% else %}
-            <div class="t-h-[155px] t-w-[155px] t-align-middle"></div>
+            <div class="t-h-[100px] t-w-[100px] t-align-middle"></div>
             {% endif %}
-            <a href="{% url 'products:detail' product.id %}" style="text-align:center">
+            <br>
+            <a class="t-text-center t-mt-2 t-no-underline t-text-black t-italic group-hover:t-underline"
+               href="{% url 'products:detail' product.id %}" style="text-align:center">
                 {{ product.display_name}}</a>
 
-            <a href="{% url 'products:detail' product.id %}" style="text-align:center">
-                {{ product.price}}원</a>
+            <a class="t-text-center t-mt-2 t-no-underline t-text-black t-italic group-hover:t-underline"
+               href="{% url 'products:detail' product.id %}" style="text-align:center color:#999;">
+                {{ product.price|intcomma }}원</a>
 
         </li>
         {% endfor %}
         {% else %}
         <tr>
-            <td colspan="3">질문이 없습니다.</td>
+            <td colspan="3">상품이 없습니다.</td>
         </tr>
         {% endif %}
+
     </ul>
-     <!-- 페이징처리 시작 -->
+    <!-- 페이징처리 시작 -->
     <ul class="pagination justify-content-center t-mt-10">
         <!-- 이전페이지 -->
         {% if product_list.has_previous %}
@@ -47,15 +56,15 @@
         {% endif %}
         <!-- 페이지리스트 -->
         {% for page_number in product_list.paginator.page_range %}
-            {% if page_number == product_list.number %}
-            <li class="page-item active" aria-current="page">
-                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
-            </li>
-            {% else %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
-            </li>
-            {% endif %}
+        {% if page_number == product_list.number %}
+        <li class="page-item active" aria-current="page">
+            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+        </li>
+        {% else %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+        </li>
+        {% endif %}
         {% endfor %}
         <!-- 다음페이지 -->
         {% if product_list.has_next %}

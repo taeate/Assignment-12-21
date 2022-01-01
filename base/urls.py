@@ -8,7 +8,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('admin/', admin.site.urls),
     path('products/', include('products.urls')),
-    path('', views.index, name='index'),
+    path('', views.main, name='main'),
 ]
 
 if settings.DEBUG:

@@ -1,7 +1,13 @@
 from django.contrib.auth.forms import UserCreationForm
-from django.forms import forms
+from django.forms import forms, ModelForm
 
 from accounts.models import User
+
+
+class FindUsernameForm(ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'email']
 
 
 class SignupForm(UserCreationForm):
