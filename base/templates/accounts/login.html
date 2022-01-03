@@ -1,14 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="container my-3">
-    <div class="row">
         <div class="col-4">
             <h4>로그인</h4>
         </div>
-        <div class="col-8 text-right">
-            <span>또는 <a href="{% url 'accounts:signup' %}">계정을 만드세요.</a></span>
-        </div>
-    </div>
     <form method="post" class="post-form" action="{% url 'accounts:login' %}">
         {% csrf_token %}
         {% include "form.errors.html" %}
@@ -24,5 +19,11 @@
         </div>
         <button type="submit" class="btn btn-primary">로그인</button>
     </form>
+    <hr>
+    <a href="{% url 'accounts:kakao_login' %}">카카오 로그인</a>
+    <img src="https://lh3.googleusercontent.com/Wm8d6q1E4-vrjP8nHFLgZsmtBYqj0hyJh9Mk1HskLeg0VMOv7SvISULL8bGTIoSv8UZcdtVozDYBpUcz0KQvwgHfMBRF7sqy67-rB8MQ4xlxtwd7tHpNG3pur8l1AIwI-mijhxoRVPlwrwB1JyUq31fCPuqDK_-XFy4KLUl8ywNON6SZh2l0YCNhaDB17A4i3VrX60vm7pcd0BtPudHzQKJdfA11cD6lpoF2gWLA4zoJFAAcrn0kraJJl0JB04obNE6hdpJDJTuRT4FcLxn69-CwI-XYCqZzDHdiNPNrGgPg9KeBhWgZi5CEG5AjexPACgUYtYtsqyNylXmcenPIeOUKzvUdrC7kWzQ9Vk3QSSKIp1IsdMI-opH4T1C_EBm34ZhPobKLiHCmq4sPaKGt7ccCWQjUn5UratP2Ins13eW1BDRrmrN6q4uR_QNZ8QkGj5k1nmwGQGk6mFFH0vhbaC2J6-FFGjCrZUUPXihF0yZLOCNBebRwv_O0ZDydl-rOcOjCl_vuyibpMNglyYWA5X4u7SiOrhKLochrqY0raaIbX_MU-7a_YV8B-AETdp5OksMKvw2fzp-EDYQwH6gKQoWwfhMDch_ZpsJdYyUJjg4E9IIEgWi21RJuch1Ceg6M1q2PiP_AtTaWbjSLAEdhBteNqiLax_eUPBivzGPcrXoRnYq7H1a3yKZgsWeTeSPiiEpTHhmyvrXW3PARE-UmQgU_=w300-h45-no?authuser=0" alt="">
+      <div class="col-8 text-right">
+          <span><a href="{% url 'accounts:signup' %}">계정만들기</a></span>
+      </div>
 </div>
 {% endblock %}

@@ -2,3 +2,5 @@ Django
 mysqlclient
 django-bootstrap5
 pillow
+requests
+django-dotenv

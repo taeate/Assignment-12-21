@@ -14,40 +14,59 @@
         <div class="card-header">
         </div>
         <div class="wrap">
-        {% if product.image %}
-        <img class="t-h-[300px] t-w-[300px] " src="{{ product.image.url }}">
-        {% else %}
-        <div class="t-h-[155px] t-w-[155px]">이미지 준비중이에요</div>
-        {% endif %}
-        <div>
-            번호 : {{product.id}}
-        </div>
-        <div>
-           이름 : {{product.display_name}}
-        </div>
-        <div>
-            <b style="color:red">{{ product.price }}원</b>
-        </div>
+            {% if product.image %}
+            <img class="t-h-[300px] t-w-[300px] " src="{{ product.image.url }}">
+            {% else %}
+            <div class="t-h-[155px] t-w-[155px]">이미지 준비중이에요</div>
+            {% endif %}
+            <div>
+                번호 : {{product.id}}
+            </div>
+            <div>
+                이름 : {{product.display_name}}
+            </div>
+            <div>
+                <b style="color:red">{{ product.price }}원</b>
+            </div>
 
-        <h1 class="mt-3">옵션</h1>
-        <ul>
-            {% for product_real in product_reals %}
-            <li>
-                {{product_real.option_1_type}} : {{product_real.option_1_display_name}}
-                /
-                {{product_real.option_2_type}} : {{product_real.option_2_display_name}}
-            </li>
-            {% endfor %}
-        </ul>
-        <div>
-            마켓 : {{product.market.name}}
-        </div>
-        <div>
-            등록 : {{product.reg_date}}
-        </div>
-        <div>
-            수정 : {{product.update_date}}
-        </div>
+            <div class="card-body">
+                <table class="table table-hover">
+                    <colgroup>
+                        <col class="sm:t-w-40">
+                        <col class="sm:t-w-40">
+                        <col>
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th>사이즈</th>
+                        <th>색상</th>
+                        <th>품절</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for product_real in product_reals %}
+                    <tr>
+                        <td>
+                            {{ product_real.option_1_display_name }}
+                        </td>
+                        <td>
+                            {{ product_real.option_2_display_name}}
+                        </td>
+                        <td>
+                            {% if not product_real.is_sold_out %}
+                            <span class="badge bg-primary">판매중</span>
+                            {% else %}
+                            <span class="badge bg-secondary">품절</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                마켓 : {{product.market.name}}
+            </div>
         </div>
     </div>
 
@@ -55,6 +74,8 @@
     <br>
     <div>
         <div style="display:inline-block">
+
+            {% if questions %}
             <ul>
                 {% for question in questions %}
                 <li style="text-align:left">{{ forloop.counter}}. {{ question.body }}</li>
@@ -68,9 +89,19 @@
                 </div>
                 {% endfor %}
             </ul>
-        </div>
-    </div>
 </center>
+{% endif %}
+
+{% if not questions %}
+<div class="card-body">
+    <div class="t-text-gray-400">
+        질문이없습니다.
+    </div>
+</div>
+{% endif %}
+</div>
+</div>
+
 {% if user.is_authenticated %}
 <form action="{% url 'products:question_create' product.id %}" method="post">
     {% csrf_token %}
@@ -78,7 +109,9 @@
     <input height="100px" type="submit" value="질문등록">
 </form>
 {% else %}
-<a href="{% url 'accounts:signup' %}">로그인</a> 후 이용해주세요.
+<div class="t-text-gray-400">
+    <a href="{% url 'accounts:signup' %}">로그인</a> 후 이용해주세요.
+</div>
 {% endif %}
 {% endblock %}
 

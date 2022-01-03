@@ -29,6 +29,32 @@ class Product(models.Model):
     def thumb_img_url(self):
         return f"https://picsum.photos/id/{self.id}/300/300"
 
+    def colors(self):
+        colors = []
+        product_reals = self.product_reals.all()
+        for product_real in product_reals:
+            colors.append(product_real.option_2_name)
+
+        html = ''
+
+        for color in set(colors):
+            if color.lower() == 'red':
+                rgb_color = 'red'
+            elif color.lower() == 'green':
+                rgb_color = 'green'
+            elif color.lower() == 'blue':
+                rgb_color = 'blue'
+            elif color.lower() == 'pink':
+                rgb_color = 'pink'
+            elif color.lower() == 'wine':
+                rgb_color = 'wine'
+            else:
+                return f"<span>정의되지 않은 색이에요<br>현재 입력된값은{color}에요<span>"
+
+            html +=f"""<span style="width:10px; height:10px; display:inline-block; border-radius:50%; margin:0 3px; background-color:{rgb_color};"></span>"""
+
+        return html
+
 
 class ProductReal(models.Model):
     reg_date = models.DateTimeField('등록날짜', auto_now_add=True)
@@ -47,3 +73,4 @@ class ProductReal(models.Model):
     is_hidden = models.BooleanField('노출여부', default=False)
     add_price = models.IntegerField('추가가격', default=0)
     stock_quantity = models.PositiveIntegerField('재고개수, 품절일때 유용함', default=0)
+
