@@ -39,10 +39,9 @@ class Migration(migrations.Migration):
                 ('object_id', models.PositiveIntegerField(verbose_name='관련 데이터 번호')),
                 ('body', models.TextField(verbose_name='내용')),
                 ('is_complete', models.BooleanField(default=False, verbose_name='답변완료여부')),
-                ('content_type',
-                 models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='content_type_question',
-                                   to='contenttypes.contenttype')),
+                ('content_type',models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='content_type_question',to='contenttypes.contenttype')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='accounts.user')),
+                ('product', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='products.product')),
             ],
         ),
         migrations.CreateModel(
