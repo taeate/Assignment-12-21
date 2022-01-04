@@ -21,6 +21,18 @@
   margin: auto;
 }
 
+.t-m-\[120\%\] {
+  margin: 120%;
+}
+
+.t-m-\[80\%\] {
+  margin: 80%;
+}
+
+.t-m-\[30\%\] {
+  margin: 30%;
+}
+
 .t-mt-2 {
   margin-top: 0.5rem;
 }
@@ -29,8 +41,16 @@
   margin-top: 2.5rem;
 }
 
+.t-mt-\[100px\] {
+  margin-top: 100px;
+}
+
 .t-block {
   display: block;
+}
+
+.t-inline-block {
+  display: inline-block;
 }
 
 .t-flex {
@@ -41,8 +61,8 @@
   display: grid;
 }
 
-.t-h-\[300px\] {
-  height: 300px;
+.t-h-\[200px\] {
+  height: 200px;
 }
 
 .t-h-\[155px\] {
@@ -51,6 +71,30 @@
 
 .t-h-\[100px\] {
   height: 100px;
+}
+
+.t-h-\[500px\] {
+  height: 500px;
+}
+
+.t-h-\[50\%\] {
+  height: 50%;
+}
+
+.t-h-\[30\%\] {
+  height: 30%;
+}
+
+.t-h-\[300px\] {
+  height: 300px;
+}
+
+.t-h-\[1000px\] {
+  height: 1000px;
+}
+
+.t-h-\[650px\] {
+  height: 650px;
 }
 
 .t-w-\[300px\] {
@@ -69,6 +113,10 @@
   width: 100vw;
 }
 
+.t-w-\[200px\] {
+  width: 200px;
+}
+
 .t-w-\[155px\] {
   width: 155px;
 }
@@ -81,8 +129,44 @@
   width: 100px;
 }
 
-.t-w-\[150px\] {
-  width: 150px;
+.t-w-\[400px\] {
+  width: 400px;
+}
+
+.t-w-\[500px\] {
+  width: 500px;
+}
+
+.t-w-\[50\%\] {
+  width: 50%;
+}
+
+.t-w-\[80\%\] {
+  width: 80%;
+}
+
+.t-w-\[100\%\] {
+  width: 100%;
+}
+
+.t-w-\[40\%\] {
+  width: 40%;
+}
+
+.t-w-\[45\%\] {
+  width: 45%;
+}
+
+.t-w-\[650px\] {
+  width: 650px;
+}
+
+.t-w-\[50px\] {
+  width: 50px;
+}
+
+.t-w-\[20px\] {
+  width: 20px;
 }
 
 .t-max-w-screen-md {
@@ -113,9 +197,21 @@
   gap: 3px;
 }
 
+.t-rounded-3xl {
+  border-radius: 1.5rem;
+}
+
+.t-bg-clip-border {
+  background-clip: border-box;
+}
+
 .t-object-cover {
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.t-text-left {
+  text-align: left;
 }
 
 .t-text-center {
@@ -130,14 +226,19 @@
   font-style: italic;
 }
 
+.t-text-gray-400 {
+  --tw-text-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-text-opacity));
+}
+
 .t-text-black {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
-.t-text-gray-400 {
+.t-text-red-300 {
   --tw-text-opacity: 1;
-  color: rgb(156 163 175 / var(--tw-text-opacity));
+  color: rgb(252 165 165 / var(--tw-text-opacity));
 }
 
 .t-no-underline {
@@ -191,10 +292,6 @@ html > body :is(h1, h2, h3, h4, h5, h6) {
 }
 
 @media (min-width: 640px) {
-  .sm\:t-w-20 {
-    width: 5rem;
-  }
-
   .sm\:t-w-40 {
     width: 10rem;
   }

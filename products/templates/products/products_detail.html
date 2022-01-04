@@ -2,74 +2,61 @@
 {% block content %}
 {% load static %}
 <br>
+<div id="디테일메인" class="t-w-[100%] t-mt-[100px] t-text-center ">
 
-<center>
-    <h1>{{ product.display_name }}<br>
-        <div class="t-text-red">저는원피스에요</div>
-    </h1>
-    <div>
-        <br>
-    </div>
-    <div class="card">
-        <div class="card-header">
-        </div>
-        <div class="wrap">
+    <div id="상품이미지" class="t-w-[45%] t-inline-block t-text-center ">
+        <div class="t-w-[90%] t-m-auto">
+            <div id="상품큰제목" class="">{{ product.display_name }}<br>
+                <div class="t-color-red-300"></div>
+            </div>
             {% if product.image %}
-            <img class="t-h-[300px] t-w-[300px] " src="{{ product.image.url }}">
+            <img class="t-h-[500px] t-w-[500px] t-m-auto" src="{{ product.image.url }}">
             {% else %}
             <div class="t-h-[155px] t-w-[155px]">이미지 준비중이에요</div>
             {% endif %}
-            <div>
-                번호 : {{product.id}}
-            </div>
-            <div>
-                이름 : {{product.display_name}}
-            </div>
-            <div>
-                <b style="color:red">{{ product.price }}원</b>
-            </div>
-
-            <div class="card-body">
-                <table class="table table-hover">
-                    <colgroup>
-                        <col class="sm:t-w-40">
-                        <col class="sm:t-w-40">
-                        <col>
-                    </colgroup>
-                    <thead>
-                    <tr>
-                        <th>사이즈</th>
-                        <th>색상</th>
-                        <th>품절</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for product_real in product_reals %}
-                    <tr>
-                        <td>
-                            {{ product_real.option_1_display_name }}
-                        </td>
-                        <td>
-                            {{ product_real.option_2_display_name}}
-                        </td>
-                        <td>
-                            {% if not product_real.is_sold_out %}
-                            <span class="badge bg-primary">판매중</span>
-                            {% else %}
-                            <span class="badge bg-secondary">품절</span>
-                            {% endif %}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <div>
-                마켓 : {{product.market.name}}
-            </div>
         </div>
     </div>
-
+    <div id="상품정보" class="t-w-[45%] t-inline-block t-m-auto ">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>{{product.display_name}}</th>
+            </tr>
+            </thead>
+        </table>
+        옵션 <select name='옵션'>
+                <option value="">옵션선택</option>
+                  {% for product_real in product_reals %}
+                <option>
+                    <td>
+                        {{ product_real.option_1_display_name }}size
+                    </td>
+                    <td>
+                        {{ product.display_name }}
+                    </td>
+                    <td>
+                        {{ product_real.option_2_display_name}}
+                    </td>
+                    <td>
+                        {% if not product_real.is_sold_out %}
+                        <span class="badge bg-primary">판매중</span>
+                        {% else %}
+                        <span class="badge bg-secondary">품절</span>
+                        {% endif %}
+                    </td>
+                </option>
+                {% endfor %}
+        </select>
+        <div>
+            마켓 : {{product.market.name}}
+        </div>
+        <div>
+            price : {{ product.price }}원
+        </div>
+    </div>
+</div>
+<hr>
+<div id="질문폼">
     <h5 style="color:blue">{{ questions.count }}개의 질문이 있습니다.</h5>
     <br>
     <div>
@@ -89,29 +76,30 @@
                 </div>
                 {% endfor %}
             </ul>
-</center>
-{% endif %}
 
-{% if not questions %}
-<div class="card-body">
-    <div class="t-text-gray-400">
-        질문이없습니다.
+            {% endif %}
+
+            {% if not questions %}
+            <div class="card-body">
+                <div class="t-text-gray-400">
+                    질문이없습니다.
+                </div>
+            </div>
+            {% endif %}
+        </div>
     </div>
 </div>
-{% endif %}
+<div id="질문작성폼">
+    {% if user.is_authenticated %}
+    <form action="{% url 'products:question_create' product.id %}" method="post">
+        {% csrf_token %}
+        <textarea name="body" id="body" rows="15"></textarea>
+        <input height="100px" type="submit" value="질문등록">
+    </form>
+    {% else %}
+    <div class="t-text-gray-400">
+        <a href="{% url 'accounts:signup' %}">로그인</a> 후 이용해주세요.
+    </div>
+    {% endif %}
 </div>
-</div>
-
-{% if user.is_authenticated %}
-<form action="{% url 'products:question_create' product.id %}" method="post">
-    {% csrf_token %}
-    <textarea name="body" id="body" rows="15"></textarea>
-    <input height="100px" type="submit" value="질문등록">
-</form>
-{% else %}
-<div class="t-text-gray-400">
-    <a href="{% url 'accounts:signup' %}">로그인</a> 후 이용해주세요.
-</div>
-{% endif %}
 {% endblock %}
-

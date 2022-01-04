@@ -27,6 +27,7 @@ class Product(models.Model):
         return self.display_name
 
     def thumb_img_url(self):
+
         return f"https://picsum.photos/id/{self.id}/300/300"
 
     def colors(self):

@@ -1,0 +1,19 @@
+""" {% for product_real in product_reals %}
+                <tr>
+                    <td>
+                        {{ product_real.option_1_display_name }}
+                    </td>
+                    <td>
+                        {{ product_real.option_2_display_name}}
+                    </td>
+                    <td>
+                        {% if not product_real.is_sold_out %}
+                        <span class="badge bg-primary">판매중</span>
+                        {% else %}
+                        <span class="badge bg-secondary">품절</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+
+                상품옵션
