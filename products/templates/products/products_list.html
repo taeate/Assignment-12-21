@@ -2,10 +2,7 @@
 {% block content %}
 {% load static %}
 {% load humanize %}
-<div>
-    <img class="t-w-screen"
-         src="https://lh3.googleusercontent.com/iiQGtYHH63E6no9LDhanx8a5YhznqBxaC5d86ZXgOc1QCyCd2tHwgmaVfEBhxQOedq4p2VOi8v49o7BXuznf_5bngqox3eFCCyF4jipFAToJAtQNyTUOOMeZbE4kr_ZXW0gs2hEhWbtMMZkMoEPaBxsfdPSeZLr_KqcsyhpnaAmnoaMxp7Jr1_mN9hIqBssDIJZzjy-ZQCo4syW4zr9pauyKRy1e0f2cfwoy_3tIyEZsMxqK7Q6lJJK4a3lwOxFXAane6VGWmVm9nArl66vVfGKHo_aQinqmIHPHlf9z1rARxK5_PDPICZLP8de7a6inkHCa58NMP9-vsEYaBj_Z9hULXyeT4f9UeVgeuhaksVcmohCZGxpQB4iUZ59WDtyHqgNC_kWBp5RDKi80qFGRJNVFaobPUh6glbicbGkHaUQn9vXb2cPPAN4SMnUJEghJK32vuNtP-BLmLJ5EHTfAb-VFeCJikQHOOXNDsEC4bVUyEo80CQYiFg13ThDUWX1w9KDdfy_Skq_SIaXt1xUpei3kCS9FyNCA-JoJFuVm59bir_gbhI89VRuDri-oHZU_mjP4N3ShzzRtmcIYwAb6srxdENPs7GNeWIgedRTA7mTeubzqdSpfccR9bCfnebxO1kOClpszCTOQINLp0ZCimjYJaEIYULJMbegEcIPR6ZImWyr_NQubE1jSqgIcwCyKo9W9riREbV5R9WdBGKqrN81G=w1641-h924-no?authuser=0">
-</div>
+<img class="t-w-screen" src="https://lh3.googleusercontent.com/4ERJ96UZTwvsFxJz8p4NZK6tYiTDEuYoqZT0g3olIbsl4edgnia8m2uw7Xsf5wDkD00WKV0ZP-vqSaMSYe8fzKbPNKggwqoztFQQc2dc_HAk6q4h82Q3sWs3eXSMLM0s_Y0GI0pd3UOiGxqbYDylEJ60gD3NMsocz7ppcC7mSzD5hgN246wDgWgmAEC_RK085uh6E3CnyFelTO2cASKDoL4tzm3vl5HVWwqtlErJ9JZ8tzBpsOwy_qVP4K_xIX-Hw-Y0HtCkGv8xUCZccJtyJPbVVqChe11sGM5W4KNT5gYwxCunFYDqYR5kuNHGsNFTatl4YDsoYzWJU4HqEgq9MFV2PfbuzS8i1Zd1QknqdyTE3y7bhwAXztquxYmWO7vzTHJcgeGK6N7czhHGeB_Crugk9xTcC0wcehkeNKIIiNSOdvcFlp_TRSlBgkG2RRy8K2tQ9xN7jFem0rE3fUYNWi82cVcG8BfNmqKjOofFem8n-s6gi2ksRfbftNFq2d6_1ujUXsHBPWxQtyCB_X0SwdA6RLn8YJw-HNx26qpQctYWlDrh3c-OKqx9gPIRieEqymGtf0lV476uiYqoL3t1ttM-K-qeyl23pQh3AZG5x3w2qmLz0pccPViCaXh-KSIEGeV-D1S8MlXIluFhBRbs7Br8SK6nIKeyc9IpLSJSu4W8uqN7iQZRbUzC6EzXlMwXB_KZjOSsUDyJjoNg1T2_emmd=w1900-h750-no?authuser=0">
 <br>
 <br>
 <tbody>
@@ -52,11 +49,15 @@
         <!-- 이전페이지 -->
         {% if product_list.has_previous %}
         <li class="page-item">
-            <a class="page-link" href="?page={{ product_list.previous_page_number }}">이전</a>
+            <a class="page-link" href="?page={{ product_list.previous_page_number }}">
+                <i class="fas fa-angle-left"></i>
+            </a>
         </li>
         {% else %}
         <li class="page-item disabled">
-            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">
+                <i class="fas fa-angle-left"></i>
+            </a>
         </li>
         {% endif %}
         <!-- 페이지리스트 -->
@@ -74,11 +75,15 @@
         <!-- 다음페이지 -->
         {% if product_list.has_next %}
         <li class="page-item">
-            <a class="page-link" href="?page={{ product_list.next_page_number }}">다음</a>
+            <a class="page-link" href="?page={{ product_list.next_page_number }}">
+                <i class="fas fa-chevron-right"></i>
+            </a>
         </li>
         {% else %}
         <li class="page-item disabled">
-            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">
+                <i class="fas fa-chevron-right"></i>
+            </a>
         </li>
         {% endif %}
     </ul>

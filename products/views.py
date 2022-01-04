@@ -4,6 +4,8 @@ from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
+
+from cart.forms import CartAddForm
 from .models import Product, ProductReal
 from .forms import QuestionForm
 from questions.models import Question
@@ -24,7 +26,7 @@ def index(request):
     else:
         product_list = Product.objects.filter(display_name__icontains=search_keyword).order_by('-id')
 
-    paginator = Paginator(product_list, 4)
+    paginator = Paginator(product_list, 8)
     page_obj = paginator.get_page(page)
     return render(request, 'products/products_list.html', {'product_list': page_obj})
 
@@ -33,12 +35,14 @@ def main(request):
 
 
 def detail(request, product_id):
+    cart_add_form = CartAddForm()
+
     product = Product.objects.get(id=product_id)
     questions = Question.objects.filter(
         object_id=product_id).filter(content_type=ContentType.objects.get(app_label='products', model='product'))
 
     product_reals = product.product_reals.order_by('option_1_display_name')
-    context = {'product': product, 'questions': questions, 'product_reals': product_reals}
+    context = {'product': product, 'questions': questions, 'product_reals': product_reals, 'cart_add_form': cart_add_form,}
 
     return render(request, 'products/products_detail.html', context)
 
