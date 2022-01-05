@@ -1,0 +1,94 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% load static %}
+{% load humanize %}
+<table name = "카트 아이템 정보">
+    <tbody class="">
+    <th>이미지</th>    
+    <th>상품명</th>
+    <th>사이즈</th>
+    <th>컬러</th>
+    <th>가격</th>
+    <th>수량</th>
+    <th></th>
+    <th></th>
+    </tbody>
+    <div name = "카트 상품들">
+        {% if user.is_authenticated %}    
+            {% if user.is_cart %}
+                {% for option in carts %}
+                <tr>
+                    <td>
+                        <img src="{{option.product_real.product.thumb_img_url}}" alt="">
+                    </td>
+                    <td>
+                    {{option.product_real.product}}
+                    </td>
+                    <td>
+                    {{option.product_real.option_1_display_name}}
+                    </td>
+                    <td>
+                    {% autoescape off %}
+                    {{option.product_real.color}}
+                    {% endautoescape %}
+                    </td>
+                    <td>
+                    {{option.product_real.product.sale_price}}
+                    </td>
+                    <form action="{% url 'cart:modify' option.id %}" method="post">
+                    {% csrf_token %}
+                    <td>
+                        <input type="number" name="quantity" min="0" value={{option.quantity}}>
+                    </td>
+                    <td>
+                        <p class ="btn btn-primary">
+                            <input type = "submit" value="변경">
+                        </p>
+                    </td>
+                    </form>
+                    <form action="{% url 'cart:delete' option.id %}" method="post">
+                        {% csrf_token %}
+                    <td>
+                        <p class ="btn btn-primary">                   
+                            <input type = "submit" value="제거">
+                        </p>
+                    </td>
+                    </form>
+                </tr>
+                {% endfor %}
+            {%else%}
+            <tr><td>상품없음</td></tr>  
+            {% endif %}  
+        {% endif %}        
+        </tbody>
+    </div>
+</table>
+<div>
+    <table>
+        <tbody>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>총계</th>
+            <th>합계</th>
+            <th></th>
+            <th></th>
+        </tbody>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{{c_sum|intcomma}}</td>
+            <td>{{q_sum}}</td>
+            <td>
+                <p class ="btn btn-primary">
+                    <input type = "submit" value="구매">
+                </p>
+            </td>
+            <td></td>
+        </tr>
+    </table>
+</div>
+{% endblock %}

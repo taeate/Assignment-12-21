@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 
 # Create your views here.
 from cart.forms import CartAddForm
@@ -21,3 +22,10 @@ def add(request: HttpRequest, product_id):
 
             messages.success(request, "장바구니에 추가되었습니다.")
             return redirect('products:detail', product_id=product_id)
+
+
+def basket(request):
+
+    cart_list = ProductReal.objects.order_by()
+    context = {'cart_list': cart_list}
+    return render(request, 'cart_list.html', context)
