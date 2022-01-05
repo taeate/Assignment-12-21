@@ -25,7 +25,7 @@
             <input class="form-control me-2 t-w-[300px]" type="search" name="search_keyword" placeholder="상품명을 입력해주세요."
                    aria-label="Search">
             <button style="color:black" class="btn btn-outline-success text-nowrap" type="submit">
-                <i class="fas fa-search"></i>
+                <i class="fas fa-search t-align-middle"></i>
             </button>
         </form>
     </div>
@@ -40,7 +40,7 @@
                 {% if user.is_authenticated %}
             <li class="nav-item ">
                 <a style="color:black" class="nav-link" href="{% url 'accounts:logout' %}">
-                    <i class="fas fa-sign-out-alt"></i>
+                    <i class="fas fa-sign-out-alt "></i>
                     [로그아웃]
                 </a>
             </li>

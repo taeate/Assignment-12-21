@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 {% block content %}
 {% load static %}
+{% load django_bootstrap5 %}
 <br>
 <div id="디테일메인" class="t-w-[100%] t-mt-[100px] t-text-center ">
 
@@ -37,50 +38,18 @@
         </div>
         <hr>
         <div class="card body">
-            <form action="" method="POST">
-                <div class="mb-3">
-                    <label class="form-label" for="product_real_id">Size / Color </label>
-                    <select class="p-2" id="product_real_id" name='product_real_id'>
-                        <option value="">옵션선택</option>
-                        {% for product_real in product_reals %}
-                        <option>
-                            <td>
-                                {{ product_real.option_1_display_name }} /
-                            </td>
-                            <td>
-                                {{ product_real.option_2_display_name}} /
-                            </td>
-                            <td>
-                                {% if not product_real.is_sold_out %}
-                                <span class="badge bg-primary">판매중</span>
-                                {% else %}
-                                <span class="badge bg-secondary">품절</span>
-                                {% endif %}
-                            </td>
-                        </option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" for="quantity">
-                        수량
-                    </label>
-                    <div class="col-xs-3">
-                        <input name="quantity" id="quantity" placeholder="수량" min="1" max="100" class="form-control"
-                               type="number"
-                               value="1">
-                    </div>
-                </div>
+            <form action="{% url 'cart:add' product.id %}" method="POST">
+                {% csrf_token %}
 
-                <div class="mb-3">
-                    <input type="submit" value="장바구니 담기" class="btn btn-primary">
-                </div>
+                {% bootstrap_form cart_add_form %}
+                {% bootstrap_button button_type="submit" content="장바구니 담기" %}
+                {% bootstrap_button button_type="reset" content="취소" %}
             </form>
         </div>
     </div>
 </div>
 <hr>
-<div id="질문폼">
+<div id="질문폼" class="t-text-center">
     <h5 style="color:blue">{{ questions.count }}개의 질문이 있습니다.</h5>
     <br>
     <div>
@@ -90,10 +59,9 @@
             <ul>
                 {% for question in questions %}
                 <li style="text-align:left">{{ forloop.counter}}. {{ question.body }}</li>
-                <div>
+                <div class="t-text-center">
                     <a href="{% url 'products:question_modify' product.id question.id  %}"
                        class="btn btn-sm btn-secondary">수정</a>
-                    <br>
                     <a href="{% url 'products:question_delete' product.id question.id  %}"
                        class="btn btn-sm btn-warning"
                        onclick="if ( confirm('정말 삭제하시겠습니까?') == false ) return false;">삭제</a>
@@ -113,11 +81,11 @@
         </div>
     </div>
 </div>
-<div id="질문작성폼">
+<div id="질문작성폼" class="t-text-center">
     {% if user.is_authenticated %}
     <form action="{% url 'products:question_create' product.id %}" method="post">
         {% csrf_token %}
-        <textarea name="body" id="body" rows="15"></textarea>
+        <textarea class="t-text-center" name="body" id="body" rows="5" cols="60"></textarea>
         <input height="100px" type="submit" value="질문등록">
     </form>
     {% else %}

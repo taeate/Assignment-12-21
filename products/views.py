@@ -35,13 +35,13 @@ def main(request):
 
 
 def detail(request, product_id):
-    cart_add_form = CartAddForm()
+    cart_add_form = CartAddForm(product_id=product_id)
 
     product = Product.objects.get(id=product_id)
     questions = Question.objects.filter(
         object_id=product_id).filter(content_type=ContentType.objects.get(app_label='products', model='product'))
 
-    product_reals = product.product_reals.order_by('option_1_display_name')
+    product_reals = product.product_reals.order_by('option_1_display_name', 'option_2_display_name')
     context = {'product': product, 'questions': questions, 'product_reals': product_reals, 'cart_add_form': cart_add_form,}
 
     return render(request, 'products/products_detail.html', context)
