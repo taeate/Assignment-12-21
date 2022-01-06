@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% load django_bootstrap5 %}
+{% block content %}
+<!doctype html>
+<html lang=ko>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+장바구니
+{% if cart_items %}
+
+    {% for cart in cart_items %}
+        <img class="t-block t-w-[30%]" src="{{ cart.product_real.product.image.url }}" alt="" style="aspect-ratio: 1 / 1;">
+        {{ cart.product_real.option_1_display_name }}
+        {{ cart.product_real.option_2_display_name }}
+        {{ cart.product_real.product.display_name }}
+
+
+
+      {{ cart.quantity }}
+
+</body>
+</html>
+{% endfor %}
+{% endif %}
+{% endblock %}
